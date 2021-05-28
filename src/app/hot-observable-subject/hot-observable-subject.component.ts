@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Observer, Subject } from 'rxjs';
 
 @Component({
@@ -6,7 +6,7 @@ import { Observable, Observer, Subject } from 'rxjs';
   templateUrl: './hot-observable-subject.component.html',
   styleUrls: ['./hot-observable-subject.component.css']
 })
-export class HotObservableSubjectComponent implements OnInit {
+export class HotObservableSubjectComponent implements OnInit, OnDestroy {
 
   hl1: number;
   hl2: number;
@@ -26,6 +26,10 @@ export class HotObservableSubjectComponent implements OnInit {
     });
     producer.subscribe(this.subject);
     this.subjectHotObservable();
+  }
+
+  ngOnDestroy() {
+    this.subject.unsubscribe();
   }
 
   subjectHotObservable() {
