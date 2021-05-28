@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { HotObservableSubjectComponent } from './hot-observable-subject/hot-observable-subject.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HotObservableSubjectComponent
   ],
   imports: [
     BrowserModule
