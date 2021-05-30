@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Observer, Subject } from 'rxjs';
+import { ConnectableObservable, Observable, Observer, Subject } from 'rxjs';
+import { publish } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hot-observable-subject',
@@ -32,9 +33,17 @@ export class HotObservableSubjectComponent implements OnInit, OnDestroy {
     this.subject.unsubscribe();
   }
 
+
+  publishConnectable(): ConnectableObservable<number> {
+    const multicast: ConnectableObservable<number> = this.subject
+    .pipe(publish()) as ConnectableObservable<number>;
+    multicast.connect();
+    return multicast;
+  }
+
   subjectHotObservable() {
     setTimeout(() => {
-      this.subject.subscribe((value) => this.hl1 = value);
+      this.publishConnectable.subscribe((value) => this.hl1 = value);
     }, 2000);
 
     setTimeout(() => {
